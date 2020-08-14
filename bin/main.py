@@ -64,7 +64,7 @@ app = FastAPI()
 # set up API
 @app.get("/")
 def root():
-    return {"MINST": "Keras OCR"}
+    return {"MNIST": "Keras OCR"}
 
 @app.get("/predict")
 async def predict(db: Session = Depends(get_db)):
