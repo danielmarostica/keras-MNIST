@@ -8,7 +8,7 @@
 
 `bin/train.py`
 
-O modelo será salvo na pasta `models`.
+O modelo será salvo na pasta `models`. O repositório conta com um modelo pré-treinado (val_acc ~ 97%), mas pode atingir 99% com 50 epochs.
 
 ### A imagem-teste base64 está no arquivo `base64image`.
 
