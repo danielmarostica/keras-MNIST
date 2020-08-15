@@ -1,17 +1,17 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #disables GPU
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #disables GPU
 
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from keras.models import model_from_json
-from keras.utils.np_utils import to_categorical
-from keras.models import  Sequential
-from keras.layers import Dense, Lambda, Flatten, Conv2D, MaxPooling2D
-from keras.optimizers import Adam, RMSprop
-from keras.preprocessing.image import ImageDataGenerator
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense, Lambda, Flatten, Conv2D, MaxPooling2D
+from tensorflow.keras.optimizers import Adam, RMSprop
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.layers import BatchNormalization
 
 # importing dataset
 training_set = pd.read_csv("../dataset/train.csv")
