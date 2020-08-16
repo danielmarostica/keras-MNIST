@@ -5,6 +5,5 @@ numpy
 tensorflow
 h5py
 scikit-learn
-scikit-image 
-pydantic
+scikit-image
 sqlalchemy
