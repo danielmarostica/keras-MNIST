@@ -20,7 +20,6 @@ import structure
 from sqlalchemy.orm import Session
 from db import SessionLocal, engine
 from structure import Records
-from pydantic import BaseModel
 
 # loads trained model
 from tensorflow.keras.models import model_from_json
