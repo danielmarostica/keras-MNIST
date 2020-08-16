@@ -16,7 +16,7 @@ Na pasta `bin`, execute `uvicorn main:app --reload`
 
 Um arquivo de banco de dados `records.db` será criado.
 
-A imagem-teste está no arquivo `base64image`. É o número 5 codificado em base64.
+A imagem-teste está no arquivo `base64image`. É o número 4 codificado em base64.
 
 ### Acessando o FastAPI docs
 
