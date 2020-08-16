@@ -8,7 +8,6 @@ import tensorflow
 import uvicorn 
 from fastapi import FastAPI, Depends
 from fastapi.encoders import jsonable_encoder
-from keras.models import model_from_json
 import base64
 import skimage.io
 from skimage.color import rgb2gray
