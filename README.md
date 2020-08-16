@@ -22,4 +22,4 @@ A imagem-teste está no arquivo `base64image`. É o número 4 codificado em base
 
 Acesse `http://127.0.0.1:8000/docs`
 
-### Executando GET /predict, uma previsão será realizada e salva como nova entrada no banco de dados.
+Executando `GET /predict`, uma previsão será realizada e salva como nova entrada no banco de dados.
