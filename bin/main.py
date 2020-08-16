@@ -59,7 +59,7 @@ with open("../base64image") as image_file:
 structure.Base.metadata.create_all(bind=engine)
 
 # starts db session
-def get_db():
+def start_db():
     try: 
         db = SessionLocal()
         yield db
@@ -75,7 +75,7 @@ def root():
     return {"MNIST": "Keras CNN"}
 
 @app.get("/predict")
-async def predict(db: Session = Depends(get_db)):
+async def predict(db: Session = Depends(start_db)):
     # decodes and transforms image
     transformed_image = transform_image(image)
     
