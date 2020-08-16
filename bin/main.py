@@ -5,14 +5,17 @@ import numpy as np
 import pandas as pd
 import tensorflow
 
+# API
 import uvicorn 
 from fastapi import FastAPI, Depends
-from fastapi.encoders import jsonable_encoder
+
+# images
 import base64
 import skimage.io
 from skimage.color import rgb2gray
 from skimage.transform import resize
 
+# database
 import structure
 from sqlalchemy.orm import Session
 from db import SessionLocal, engine
@@ -20,9 +23,10 @@ from structure import Records
 from pydantic import BaseModel
 
 # loads trained model
+from tensorflow.keras.models import model_from_json
 with open('../models/model.json', 'r') as json_file:
     cnn_json = json_file.read()
-cnn = tensorflow.keras.models.model_from_json(cnn_json)
+cnn = model_from_json(cnn_json)
 cnn.load_weights("../models/model.h5")
 
 # decodes base64 image
