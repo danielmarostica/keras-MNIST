@@ -2,7 +2,7 @@ fastapi
 uvicorn
 pandas
 numpy
-Keras
+tensorflow
 h5py
 scikit-learn
 scikit-image 

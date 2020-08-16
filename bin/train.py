@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from tensorflow.keras.models import model_from_json
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Lambda, Flatten, Conv2D, MaxPooling2D
@@ -21,7 +20,7 @@ X_train = training_set.iloc[:,1:].values
 y_train = training_set.iloc[:,0].values.astype('int32')
 y_train = to_categorical(y_train)
 
-# normalisation
+# normalization
 X_train = X_train/255
 
 # train-test split
@@ -69,9 +68,11 @@ cnn.add(BatchNormalization())
 cnn.add(Dense(512,activation="relu"))
     
 cnn.add(Dense(10,activation="softmax"))
-    
+
+# compiling the CNN    
 cnn.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
+# fitting data
 cnn.fit(train_gen, epochs = 3, validation_data = test_gen)                                
 
 # serializing model to JSON

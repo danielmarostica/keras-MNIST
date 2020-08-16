@@ -3,7 +3,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1" # disables GPU
 
 import numpy as np
 import pandas as pd
-import tensorflow as tf
+import tensorflow
 
 import uvicorn 
 from fastapi import FastAPI, Depends
@@ -23,7 +23,7 @@ from pydantic import BaseModel
 # loads trained model
 with open('../models/model.json', 'r') as json_file:
     cnn_json = json_file.read()
-cnn = tf.keras.models.model_from_json(cnn_json)
+cnn = tensorflow.keras.models.model_from_json(cnn_json)
 cnn.load_weights("../models/model.h5")
 
 # decodes base64 image
@@ -32,48 +32,58 @@ def decoder(base64_string):
     img = skimage.io.imread(imgdata, plugin='imageio')
     return img
   
-# calls decoder and transforms to grayscale
+# transforms image
 def transform_image(input_image):
+    # decode
     decoded = decoder(input_image)
-    image_decoded = rgb2gray(decoded)
+    
+    #RGB to graycale
+    grayscaled = rgb2gray(decoded)
     
     # resizes
-    image_decoded = resize(image_decoded, (28, 28))
+    resized = resize(grayscaled, (28, 28))
     
     # to tensors
-    image_decoded = image_decoded.reshape(-1,28,28,1)
+    tensor_image = resized.reshape(-1,28,28,1)
     
-    return image_decoded
+    return tensor_image
     
 # loads base64image
 with open("../base64image") as image_file:
     image = image_file.read().replace('\n','')
     
-# create database
+# creates database
 structure.Base.metadata.create_all(bind=engine)
 
-# start db session
+# starts db session
 def get_db():
     try: 
         db = SessionLocal()
         yield db
     finally:
         db.close()
+        
+# creates FastAPI object
 app = FastAPI()
 
-# set up API
+# sets up API
 @app.get("/")
 def root():
-    return {"MNIST": "Keras OCR"}
+    return {"MNIST": "Keras CNN"}
 
 @app.get("/predict")
 async def predict(db: Session = Depends(get_db)):
+    # decodes and transforms image
     transformed_image = transform_image(image)
-    y_pred = cnn.predict_classes(transformed_image)
-
-    rec = Records()
-    rec.entries = str(y_pred[0])
     
+    # predicts a number
+    y_pred = cnn.predict_classes(transformed_image)
+    
+    # creates a blueprint of the db structure
+    rec = Records()
+    
+    # stores a string in the 'entries' column
+    rec.entries = str(y_pred[0])
     db.add(rec)
     db.commit()
     
@@ -81,4 +91,4 @@ async def predict(db: Session = Depends(get_db)):
             "message": "entry added to database"}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000) 
+    uvicorn.run(app, host="127.0.0.1", port=8000)

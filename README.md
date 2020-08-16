@@ -1,4 +1,4 @@
-# Um OCR simples com Keras (MNIST)
+# Uma rede neural Keras em API
 
 ### Instale as bibliotecas necessárias
 
@@ -6,20 +6,20 @@
 
 ### Treine o modelo com o MNIST dataset
 
-`bin/train.py`
+Execute o arquivo `bin/train.py`.
 
 O modelo será salvo na pasta `models`. O repositório conta com um modelo pré-treinado (val_acc ~ 97%), mas pode atingir 99% com 50 epochs.
 
-### A imagem-teste base64 está no arquivo `base64image`.
-
 ### Para inicializar a API
 
-`uvicorn main:app --reload`
+Na pasta `bin`, execute `uvicorn main:app --reload`
 
 Um arquivo de banco de dados `records.db` será criado.
 
+A imagem-teste está no arquivo `base64image`. É o número 5 codificado em base64.
+
 ### Acessando o FastAPI docs
 
-`http://127.0.0.1:8000/docs`
+Acesse `http://127.0.0.1:8000/docs`
 
 ### Executando GET /predict, uma previsão será realizada e salva como nova entrada no banco de dados.
