@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Lambda, Flatten, Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import BatchNormalization
@@ -18,6 +18,8 @@ training_set = pd.read_csv("../dataset/train.csv")
 # to ndarray
 X_train = training_set.iloc[:,1:].values
 y_train = training_set.iloc[:,0].values.astype('int32')
+
+# one hot encoding
 y_train = to_categorical(y_train)
 
 # normalization
@@ -55,7 +57,7 @@ cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
 cnn.add(BatchNormalization())
-cnn.add(Conv2D(filters=56, kernel_size = (3,3), activation="relu"))
+cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
 cnn.add(BatchNormalization())    

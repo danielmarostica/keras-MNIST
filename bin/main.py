@@ -36,10 +36,10 @@ def decoder(base64_string):
   
 # transforms image
 def transform_image(input_image):
-    # decode
+    # decodes
     decoded = decoder(input_image)
     
-    #RGB to graycale
+    # RGB to grayscale
     grayscaled = rgb2gray(decoded)
     
     # resizes
