@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-pandas
-numpy
-tensorflow
-h5py
-scikit-learn
-scikit-image
-sqlalchemy
