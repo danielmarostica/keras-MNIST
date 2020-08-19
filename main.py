@@ -66,5 +66,5 @@ async def predict(image: JSON_image, db: Session = Depends(start_db)):
     return {"the number is": str(y_pred[0]),
             "message": "entry added to database"}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+#if __name__ == "__main__":
+    #uvicorn.run(app, host="127.0.0.1", port=8000)
