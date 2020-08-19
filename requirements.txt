@@ -1,5 +1,6 @@
 fastapi
-uvicorn
+uvicorn==0.11.8
+gunicorn
 pandas
 numpy==1.19
 tensorflow
