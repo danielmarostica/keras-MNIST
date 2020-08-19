@@ -1,6 +1,6 @@
 def load_model(name: str='model'):
     # loads trained model
-    from tensorflow.keras.models import model_from_json
+    from keras.models import model_from_json
     with open('models/{}.json'.format(name), 'r') as json_file:
         cnn_json = json_file.read()
     cnn = model_from_json(cnn_json)
