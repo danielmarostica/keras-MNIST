@@ -12,6 +12,16 @@ from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import BatchNormalization
 
+
+callbacks = [tensorflow.keras.callbacks.EarlyStopping(
+            # Stop training when `val_loss` is no longer improving
+            monitor='val_accuracy',
+            # "no longer improving" being defined as "no better than 1e-2 less"
+            min_delta=1e-3,
+            # "no longer improving" being further defined as "for at least 2 epochs"
+            patience=5,
+            verbose=1)]
+
 # importing dataset
 training_set = pd.read_csv("../dataset/train.csv")
 
@@ -73,7 +83,7 @@ cnn.add(Dense(10,activation="softmax"))
 cnn.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 # fitting data
-cnn.fit(train_gen, epochs = 3, validation_data = test_gen)                             
+cnn.fit(train_gen, epochs = 3, validation_data = test_gen, callbacks=callbacks)                             
 
 # serializing model to JSON
 model_json = cnn.to_json()
@@ -89,3 +99,5 @@ y_pred = cnn.predict(X_test)
 y_pred = np.argmax(y_pred, axis=1)
 y_test = np.argmax(y_test, axis=1)
 print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
+
+
