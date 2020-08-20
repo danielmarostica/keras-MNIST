@@ -22,16 +22,10 @@ from db_structure import Records
 # expands BaseModel to validate input
 class JSON_image(BaseModel):
     image_str: str
-    
-# transforms base64 image into tensor
-transformer = Transformer()
-
-# loads predictor
-cnn = load_model('model')
 
 # creates database
 def start_db():
-    try: 
+    try:
         db_structure.Base.metadata.create_all(bind=engine)
         db = SessionLocal()        
         yield db
@@ -48,12 +42,18 @@ def root():
 
 @app.post("/predict")
 async def predict(image: JSON_image, db: Session = Depends(start_db)):
-    # decodes and transforms image
+    # creates image manipulation object
+    transformer = Transformer()
+    
+    # loads predictor
+    cnn = load_model('model')
+
+    # decodes and transforms image, which is received through post request and validated with image_str
     image_decoded = transformer.decode(image.image_str)
-    image_transformed = transformer.to_tensor(image_decoded)
+    image_decoded = transformer.to_tensor(image_decoded)
     
     # predicts a number
-    y_pred = cnn.predict_classes(image_transformed)
+    y_pred = cnn.predict_classes(image_decoded)
     
     # creates a blueprint of the db structure
     rec = Records()

@@ -1,5 +1,5 @@
 import os
-#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #disables GPU
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #disables GPU
 
 import numpy as np
 import pandas as pd
@@ -12,13 +12,10 @@ from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import BatchNormalization
 
-
 callbacks = [tensorflow.keras.callbacks.EarlyStopping(
-            # Stop training when `val_loss` is no longer improving
+            # Stop training when `val_accuracy` is no longer improving
             monitor='val_accuracy',
-            # "no longer improving" being defined as "no better than 1e-2 less"
             min_delta=1e-3,
-            # "no longer improving" being further defined as "for at least 2 epochs"
             patience=5,
             verbose=1)]
 
@@ -26,15 +23,15 @@ callbacks = [tensorflow.keras.callbacks.EarlyStopping(
 training_set = pd.read_csv("../dataset/train.csv")
 
 # to ndarray
-X_train = training_set.iloc[:,1:].values
-y_train = training_set.iloc[:,0].values.astype('int32')
+X_train = training_set.iloc[:, 1:].values
+y_train = training_set.iloc[:, 0].values.astype('int32')
 y_train = to_categorical(y_train)
 
 # normalization
 X_train = X_train/255
 
 # train-test split
-X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.10)
+X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.1)
 
 # to tensors
 X_train = X_train.reshape(-1,28,28,1)
@@ -65,7 +62,7 @@ cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
 cnn.add(BatchNormalization())
-cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
+cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
 cnn.add(BatchNormalization())
@@ -75,15 +72,15 @@ cnn.add(MaxPooling2D(pool_size=(2,2)))
     
 cnn.add(Flatten())
 cnn.add(BatchNormalization())
-cnn.add(Dense(512,activation="relu"))
+cnn.add(Dense(512, activation="relu"))
 
-cnn.add(Dense(10,activation="softmax"))
+cnn.add(Dense(10, activation="softmax"))
 
 # compiling the CNN
 cnn.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 # fitting data
-cnn.fit(train_gen, epochs = 3, validation_data = test_gen, callbacks=callbacks)                             
+cnn.fit(train_gen, epochs = 50, validation_data = test_gen, callbacks=callbacks)                             
 
 # serializing model to JSON
 model_json = cnn.to_json()
@@ -99,5 +96,3 @@ y_pred = cnn.predict(X_test)
 y_pred = np.argmax(y_pred, axis=1)
 y_test = np.argmax(y_test, axis=1)
 print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
-
-
