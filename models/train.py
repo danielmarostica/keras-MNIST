@@ -62,14 +62,14 @@ cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu", input_shape=(
 cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
-cnn.add(BatchNormalization())
-cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
+#cnn.add(BatchNormalization())
+#cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
 
-cnn.add(MaxPooling2D(pool_size=(2,2)))
-cnn.add(BatchNormalization())
-cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
+#cnn.add(MaxPooling2D(pool_size=(2,2)))
+#cnn.add(BatchNormalization())
+#cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
     
-cnn.add(MaxPooling2D(pool_size=(2,2)))
+#cnn.add(MaxPooling2D(pool_size=(2,2)))
     
 cnn.add(Flatten())
 cnn.add(BatchNormalization())
@@ -81,7 +81,7 @@ cnn.add(Dense(10, activation="softmax"))
 cnn.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 # fitting data
-cnn.fit(train_gen, epochs = 50, validation_data = test_gen, callbacks=callbacks)                             
+cnn.fit(train_gen, epochs = 25, validation_data = test_gen, callbacks=callbacks)                             
 
 # serializing model to JSON
 model_json = cnn.to_json()
