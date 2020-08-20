@@ -12,7 +12,7 @@ A API pode demorar alguns segundos para iniciar no cloud, apos o post request.
 
 ### Instale as bibliotecas necessárias
 
-`pip install -r requirements`
+`pip install -r requirements-local`
 
 ### Treine o modelo com o MNIST dataset
 
