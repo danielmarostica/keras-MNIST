@@ -84,11 +84,11 @@ cnn.fit(train_gen, epochs = 50, validation_data = test_gen, callbacks=callbacks)
 
 # serializing model to JSON
 model_json = cnn.to_json()
-with open("../models/model.json", "w") as json_file:
+with open("model.json", "w") as json_file:
     json_file.write(model_json)
     
 # serializing weights to HDF5
-cnn.save_weights("../models/model.h5")
+cnn.save_weights("model.h5")
 print("Saved model to disk.")
 
 # printing a sample

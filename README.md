@@ -14,9 +14,9 @@ A API recebe uma string (imagem base64) como post request. Copie do arquivo `bas
 
 ### Treine o modelo com o MNIST dataset
 
-Clone este repositório e execute o arquivo `modules/train.py` para treinar um novo modelo.
+Execute o arquivo `models/train.py` para treinar um novo modelo, que será salvo na mesma pasta.
 
-O modelo será salvo na pasta `models`. O repositório conta com um modelo pré-treinado (val_acc ~ 97%), mas pode atingir 99% com 50 epochs.
+O repositório conta com um modelo pré-treinado (val_acc ~ 97%), mas pode atingir 99% com 50 epochs.
 
 ### Para inicializar a API
 
