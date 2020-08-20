@@ -11,8 +11,9 @@ from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping
 
-callbacks = [tensorflow.keras.callbacks.EarlyStopping(
+callbacks = [EarlyStopping(
             # Stop training when `val_accuracy` is no longer improving
             monitor='val_accuracy',
             min_delta=1e-3,
