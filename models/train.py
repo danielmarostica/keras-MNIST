@@ -62,14 +62,14 @@ cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu", input_shape=(
 cnn.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
 cnn.add(MaxPooling2D(pool_size=(2,2)))
-#cnn.add(BatchNormalization())
-#cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
+cnn.add(BatchNormalization())
+cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
 
-#cnn.add(MaxPooling2D(pool_size=(2,2)))
-#cnn.add(BatchNormalization())
-#cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
+cnn.add(MaxPooling2D(pool_size=(2,2)))
+cnn.add(BatchNormalization())
+cnn.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
     
-#cnn.add(MaxPooling2D(pool_size=(2,2)))
+cnn.add(MaxPooling2D(pool_size=(2,2)))
     
 cnn.add(Flatten())
 cnn.add(BatchNormalization())

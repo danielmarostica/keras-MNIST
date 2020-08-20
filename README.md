@@ -18,7 +18,7 @@ A API pode demorar alguns segundos para iniciar no cloud, apos o post request.
 
 Execute o arquivo `models/train.py` para treinar um novo modelo, que será salvo na mesma pasta.
 
-O repositório conta com um modelo pré-treinado (val_acc ~ 97%), mas pode atingir 99% com 50 epochs.
+O repositório conta com um modelo pré-treinado (val_acc ~ 99%). Early stop em 16 epochs.
 
 ### Para inicializar a API
 
