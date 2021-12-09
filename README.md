@@ -6,7 +6,7 @@ A API recebe uma string (imagem base64) como post request. Copie do arquivo `bas
 
 [Acesse aqui.](https://keras-mnist-roit.herokuapp.com/docs)
 
-A API pode demorar alguns segundos para iniciar no cloud, apos o post request.
+A API pode demorar alguns segundos para iniciar no cloud, após o post request.
 
 ## Local
 
